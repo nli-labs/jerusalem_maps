@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import json
 
 # Extract year string from year
-def _extract_year(str):
+def extract_year(str):
 	#try to find a four-digit year
 	match = re.search(r'\d{4}', str)
 	if match:
@@ -43,8 +43,11 @@ def get_details(url):
 	image_url = bs.find('img', {'class':'imgthumb'}).parent.get('href')
 
 
-	notes = [] ; headline = '' ; text = '' 
-	caption = '<a href="%s" target="_blank">Full size</>' % image_url
+	notes = [] ; headline = '' ; text = '' ; year = ''
+	caption = '' #'<a href="%s" target="_blank">Full size</>' % image_url
+
+	y = bs.find(text="Imprint").find_next('td').text
+	year = extract_year(y)
 
 	t = bs.find(text="Title")
 	if t is not None:
@@ -61,7 +64,7 @@ def get_details(url):
 		# headline = notes.pop(0)
 		text = '\n'.join(notes)
 
-	return image_url, headline, text, caption
+	return image_url, headline, text, caption, year
 
 
 # START HERE
@@ -75,36 +78,63 @@ if r.status_code != 200:
 soup = BeautifulSoup(r.text)
 
 data = soup.find("table", cols="5")
-trs = data.find_all('tr')
+
+# trs = data.find_all('tr')
+imgs = data.find_all('img', {'class':'imgthumb'});
 
 # numCols = 1; #there are 5 columns in the map webpage
 alldata = []
 
-for i in range(len(trs)):
+for i in imgs:
 	row = {}
+	img_url = i.get('src')
+	row['thumb'] = img_url
 
-	if i%2==0:
+	info_url = 'http://www.jnul.huji.ac.il/dl/maps/jer/html/' + i.find_parent("a").get('href')
 
-		#fill in the map URLs:
-		tds = trs[i].find_all("td");
+	image_url, headline, text, caption, year = get_details(info_url)
 
-		img_url = tds[0].find_next("img").get('src')
-		row['thumb'] = img_url
+	row['image'] 	= image_url
+	row['headline'] = headline.encode('utf-8')
+	row['text'] 	= text.encode('utf-8')
+	row['caption']	= caption.encode('utf-8')
+	row['year']		= year.encode('utf-8')
 
-		info_url = 'http://www.jnul.huji.ac.il/dl/maps/jer/html/' + tds[0].find_next("a").get('href')
+	# #fill in the map year attributes:
+	# tds = trs[i+1].find_all("td");
 
-		image_url, headline, text, caption = get_details(info_url)
+	# row['year'] = _extract_year(tds[0].text)
 
-		row['image'] 	= image_url
-		row['headline'] = headline.encode('utf-8')
-		row['text'] 	= text.encode('utf-8')
-		row['caption']	= caption.encode('utf-8')
+	# print row
 
-		#fill in the map year attributes:
-		tds = trs[i+1].find_all("td");
+	alldata.append(row)
 
-		row['year'] = _extract_year(tds[0].text)
 
-		alldata.append(row)
+# for i in range(len(trs)):
+# 	row = {}
+
+# 	if i%2==0:
+
+# 		#fill in the map URLs:
+# 		tds = trs[i].find_all('td', {'class':'imgthumb'});
+
+# 		img_url = tds[0].find_next("img").get('src')
+# 		row['thumb'] = img_url
+
+# 		info_url = 'http://www.jnul.huji.ac.il/dl/maps/jer/html/' + tds[0].find_next("a").get('href')
+
+# 		image_url, headline, text, caption = get_details(info_url)
+
+# 		row['image'] 	= image_url
+# 		row['headline'] = headline.encode('utf-8')
+# 		row['text'] 	= text.encode('utf-8')
+# 		row['caption']	= caption.encode('utf-8')
+
+# 		#fill in the map year attributes:
+# 		tds = trs[i+1].find_all("td");
+
+# 		row['year'] = _extract_year(tds[0].text)
+
+# 		alldata.append(row)
 
 output_csv(alldata)
