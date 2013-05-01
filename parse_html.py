@@ -57,14 +57,22 @@ def get_details(url):
 
 # START HERE
 
+json_data = {
+	"timeline" : {
+		"headline" 	: "Ancient Maps of Jerusalem",
+		"type"		: "default",
+		"date"		: []
+	}
+}
+
 r = requests.get('http://www.jnul.huji.ac.il/dl/maps/jer/html/date.html')
 soup = BeautifulSoup(r.text)
 
 data = soup.find("table", cols="5")
 imgs = data.find_all('img', {'class':'imgthumb'});
 
-writer = csv.writer(sys.stdout, quoting=csv.QUOTE_ALL)
-writer.writerow(('Start Date', 'End Date', 'Headline', 'Text', 'Media', 'Media Credit', 'Media Caption', 'Media Thumbnail'))
+# writer = csv.writer(sys.stdout, quoting=csv.QUOTE_ALL)
+# writer.writerow(('Start Date', 'End Date', 'Headline', 'Text', 'Media', 'Media Credit', 'Media Caption', 'Media Thumbnail'))
 
 for i in imgs:
 	thumbnail = i.get('src')
@@ -75,4 +83,20 @@ for i in imgs:
 
 	credit =  'National Library of Israel'
 
-	writer.writerow((year, year, headline.encode('utf-8'), text.encode('utf-8'), image_url, credit, caption.encode('utf-8'), thumbnail))
+	# writer.writerow((year, year, headline.encode('utf-8'), text.encode('utf-8'), image_url, credit, caption.encode('utf-8'), thumbnail))
+
+	json_data['timeline']['date'].append ({
+        "startDate"	: year,
+        "headline"	: headline.encode('utf-8'),
+        "text"		: text.encode('utf-8'),
+        "asset":
+        {
+            "media"		: image_url,
+            "thumbnail" : thumbnail,
+            "credit"	: credit,
+            "caption"	: caption.encode('utf-8')
+        }
+	})
+
+
+print json.dumps(json_data)
