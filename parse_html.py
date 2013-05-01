@@ -50,7 +50,7 @@ def get_details(url):
 	elif len(notes) > 1:
 		caption = notes.pop(0) + '  ' + caption
 		# headline = notes.pop(0)
-		text = '<br />\n'.join(notes)
+		text = '<br/><br/>'.join(notes)
 
 	return image_url, headline, text, caption, year
 
