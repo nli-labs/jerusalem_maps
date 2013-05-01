@@ -21,6 +21,10 @@
     <script>
     $(document).ready(function() {
         var elementHeight = $(window).height() - 50;
+        // var mainAreaHeight = $('.slider-item').height(),
+        //     imgs = $('.slider-item img');
+        // imgs.css({'margin-top':'-5px', 'max-height':(mainAreaHeight-15)+'px'});
+
         createStoryJS({
             type    : 'timeline',
             width   : '%100',
@@ -55,6 +59,10 @@
 
       #top_header: {
         margin : 20px;
+      }
+
+      .credit, .caption {
+        display: none !important;
       }
     </style>
 
