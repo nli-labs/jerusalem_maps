@@ -99,4 +99,7 @@ for i in imgs:
 	})
 
 
-print json.dumps(json_data)
+data = json.dumps(json_data)
+
+print "data =  %s" % data
+
