@@ -20,10 +20,11 @@
 
     <script>
     $(document).ready(function() {
+        var elementHeight = $(window).height() - 50;
         createStoryJS({
             type    : 'timeline',
             width   : '%100',
-            height  : '650',
+            height  : elementHeight,
             
             // source  : 'https://docs.google.com/spreadsheet/pub?key=0An0CcDBdSXpkdHZSN1FKRWdobkdBZFdTSGpkT2xrN1E&output=html' ,
             source  : data, //'data.json',
@@ -49,6 +50,7 @@
       
       body {
         /*background-image: url(http://jnul.huji.ac.il/dl/maps/jer/images/jer108/Jer108_b.jpg);*/
+        height: 98% !important;
       }
 
       #top_header: {
