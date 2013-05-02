@@ -4391,7 +4391,6 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 				var mediaElem = "", captionElem = "", creditElem = "", _id = "", isTextMedia = false, m;
 				
 				m = VMM.MediaType(data.media); //returns an object with .type and .id
-				console.log(m);
 				m.uid = uid;
 				_valid = true;
 				
@@ -4408,8 +4407,8 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 					if (m.id.match("https://")) {
 						m.id = m.id.replace("https://","http://");
 					}
-					//orig mediaElem			=	"<div class='media-image media-shadow'><img src='" + m.id + "' class='media-image'></div>";
-					mediaElem 			= 	"<div class='media-image media-shadow'><a href='" + m.id + "' target='_blank'><img src='" + m.id + "'></a></div>";
+					//nir mediaElem			=	"<div class='media-image media-shadow'><img src='" + m.id + "' class='media-image'></div>";
+					mediaElem			=	"<div class='media-image media-shadow'><a href='" + m.id + "' target='_blank'><img src='" + m.id + "'></a></div>";
 			// FLICKR
 				} else if (m.type		==	"flickr") {
 					//mediaElem			=	"<div class='media-image media-shadow' id='" + uid + "'>" + loading_messege + "</div>";
