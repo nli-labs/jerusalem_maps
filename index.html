@@ -21,17 +21,13 @@
     <script>
     $(document).ready(function() {
         var elementHeight = $(window).height() - 50;
-        // var mainAreaHeight = $('.slider-item').height(),
-        //     imgs = $('.slider-item img');
-        // imgs.css({'margin-top':'-5px', 'max-height':(mainAreaHeight-15)+'px'});
 
         createStoryJS({
             type    : 'timeline',
             width   : '%100',
             height  : elementHeight,
             
-            // source  : 'https://docs.google.com/spreadsheet/pub?key=0An0CcDBdSXpkdHZSN1FKRWdobkdBZFdTSGpkT2xrN1E&output=html' ,
-            source  : data, //'data.json',
+            source  : data, //'https://docs.google.com/spreadsheet/pub?key=0An0CcDBdSXpkdHZSN1FKRWdobkdBZFdTSGpkT2xrN1E&output=html'
             
             embed_id: 'my-timeline',
             start_zoom_adjust : 0,
