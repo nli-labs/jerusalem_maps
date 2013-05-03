@@ -29,7 +29,10 @@ def extract_year(str):
 # Get data from a single map details page
 def get_details(url):
 	i = requests.get(url)
-	bs = BeautifulSoup(i.text)
+	i.encoding = 'utf-8'
+
+	bs = BeautifulSoup(i.text, from_encoding = 'utf-8')
+
 	image_url = bs.find('img', {'class':'imgthumb'}).parent.get('href')
 
 	notes = [] ; headline = '' ; text = '' ; year = '' ; caption = ''
