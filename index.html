@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.4" type="text/css" media="screen" />
     <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.4"></script>
 
+    <script src="jquery.imageLens.js" type="text/javascript"></script>
+
     <script>
     $(document).ready(function() {
         var elementHeight = $(window).height() - 50;
@@ -37,7 +39,10 @@
             debug   : false,
         });
 
-        $("div.media-image a").fancybox({ padding : 0 });
+        $("div.media-image a").fancybox({ 
+          padding : 0,
+          afterShow: function() { console.log("fancybox afterShow") ; $(".fancybox-image").imageLens(); }
+        });
 
     });
     </script>
