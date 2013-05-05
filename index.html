@@ -41,7 +41,10 @@
 
         $("div.media-image a").fancybox({ 
           padding : 0,
-          afterShow: function() { console.log("fancybox afterShow") ; $(".fancybox-image").imageLens(); }
+          afterShow: function() { 
+            high_res = $(".fancybox-image").attr("src").replace('_b.jpg', '_a.jpg')
+            $(".fancybox-image").imageLens({ imageSrc: high_res }); 
+          }
         });
 
     });
