@@ -25,7 +25,22 @@
 
     <script src="jquery.imageLens.js" type="text/javascript"></script>
 
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css">
+    <![endif]-->
+
     <script>
+    function fb_share(){
+      window.open(
+          'http://www.facebook.com/sharer.php?u=https%3A%2F%2Fnli-labs.net%2Fjerusalem_maps%2F', 
+          'facebook_share',
+          'height=320, width=640, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no'
+      );
+    }
+
     $(document).ready(function() {
         var elementHeight = $(window).height() - 50;
 
@@ -82,6 +97,10 @@
       #share_box{
         float: right;
       }
+
+      #top_header a {
+        color: #999;
+      }
     </style>
 
     <!-- HTML5 shim, for IE6-8 support of HTML elements--><!--[if lt IE 9]>
@@ -90,24 +109,12 @@
   </head>
 </html>
 <body>
-  <!-- FB button -->
-<div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
-  <!-- / FB button -->
-
   <div id="top_header" style="margin: 10px 20px;">
     <div id="top_title">Ancient Maps of Jerusalem</div>
     <div id="share_box">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-via="niryariv" data-count="none">Tweet</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
-      <fb:like send="false" layout="button_count" width="90" show_faces="false"></fb:like>
+      <a class="icon-twitter icon-2x" href="https://twitter.com/intent/tweet?text=Timeline of Old Jerusalem Maps&url=https%3A%2F%2Fnli-labs.net%2Fjerusalem_maps%2F" alt="Tweet"></a>
+      &nbsp;
+      <a class="icon-facebook icon-2x" href="javascript:fb_share();"></a>
     </div>
     <div style="clear:both;"></div>
   </div>
